@@ -45,7 +45,7 @@ namespace eShop.ProductAPIs.Controllers
             return Ok(product);
         }
 
-        [HttpPut()]
+        [HttpPut]
         public async Task<ActionResult<ProductVO>> Update([FromBody] ProductVO vo)
         {
             if (vo == null) return BadRequest();
