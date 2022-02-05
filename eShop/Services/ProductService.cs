@@ -8,7 +8,7 @@ namespace eShop.Services
     {
         private readonly HttpClient _client;
 
-        public const string BasePath = "api/vi/product";
+        public const string BasePath = "api/v1/product";
 
         public ProductService(HttpClient client)
         {
