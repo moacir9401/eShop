@@ -1,4 +1,6 @@
+using AutoMapper;
 using eShop.ProductAPI.Model.Context;
+using eShop.ProductAPIs.Config;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 var connection = builder.Configuration["MysqlConnection:MysqlConnectionString"];
+
+IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
+builder.Services.AddSingleton(mapper);
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddDbContext<MySqlContext>(options => options
 .UseMySql(connection,
