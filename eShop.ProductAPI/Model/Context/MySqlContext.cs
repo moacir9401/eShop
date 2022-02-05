@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using eShop.ProductAPIs.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace eShop.ProductAPI.Model.Context
 {
@@ -6,6 +7,7 @@ namespace eShop.ProductAPI.Model.Context
     {
         public MySqlContext() { }
         public MySqlContext(DbContextOptions<MySqlContext> options):base(options) { } 
+        public DbSet<Product> products { get; set; }
 
     }
 }
