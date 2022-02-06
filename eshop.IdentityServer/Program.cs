@@ -19,7 +19,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
     .AddEntityFrameworkStores<MySqlContext>()
     .AddDefaultTokenProviders();
 
-builder.Services.AddIdentityServer(options =>
+var build = builder.Services.AddIdentityServer(options =>
 {
     options.Events.RaiseErrorEvents = true;
     options.Events.RaiseInformationEvents = true;
@@ -27,9 +27,11 @@ builder.Services.AddIdentityServer(options =>
     options.Events.RaiseSuccessEvents = true;
     options.EmitStaticAudienceClaim = true;
 }).AddInMemoryIdentityResources(IdentityConfiguration.IdentityResources)
+.AddInMemoryApiScopes(IdentityConfiguration.apiScopes)
 .AddInMemoryClients(IdentityConfiguration.clients)
-.AddAspNetIdentity<ApplicationUser>().AddDeveloperSigningCredential();
+.AddAspNetIdentity<ApplicationUser>();
 
+build.AddDeveloperSigningCredential();
 
 
 var app = builder.Build();
