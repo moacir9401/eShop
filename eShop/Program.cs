@@ -17,7 +17,7 @@ builder.Services.AddAuthentication(options =>
     .AddCookie("Cookies", c => c.ExpireTimeSpan = TimeSpan.FromMinutes(10))
     .AddOpenIdConnect("oidc", options =>
     {
-        options.Authority = builder.Configuration["IdentityServer"];
+        options.Authority = "https://localhost:4435";
         options.GetClaimsFromUserInfoEndpoint = true;
         options.ClientId = "eshop_shopping";
         options.ClientSecret = "my_super_secret";
@@ -47,7 +47,6 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseAuthentication();
-
 app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>

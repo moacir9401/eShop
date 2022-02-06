@@ -37,17 +37,17 @@ namespace eshop.IdentityServer.Configuration
                 },
                  new Client
                 {
-                    ClientId = "eshop",
+                    ClientId = "eshop_shopping",
                     ClientSecrets = { new Secret("my_super_secret".Sha256())},
                     AllowedGrantTypes = GrantTypes.Code,
-                    RedirectUris = { "https://localhost:4430/signin-oidc"},
+                     RedirectUris = {"https://localhost:4430/signin-oidc"},
                     PostLogoutRedirectUris = {"https://localhost:4430/signout-callback-oidc"},
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
                         IdentityServerConstants.StandardScopes.Profile,
                         IdentityServerConstants.StandardScopes.Email,
-                        "eshop"
+                        "eshop_shopping"
                     }
                 }
             };

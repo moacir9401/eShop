@@ -55,6 +55,7 @@ app.UseRouting();
 
 app.UseIdentityServer();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 using (var serviceScope = app.Services.CreateScope())
