@@ -1,4 +1,5 @@
 using eshop.IdentityServer.Configuration;
+using eshop.IdentityServer.Initializer;
 using eshop.IdentityServer.Model;
 using eshop.IdentityServer.Model.Context;
 using Microsoft.AspNetCore.Identity;
@@ -31,10 +32,14 @@ var build = builder.Services.AddIdentityServer(options =>
 .AddInMemoryClients(IdentityConfiguration.clients)
 .AddAspNetIdentity<ApplicationUser>();
 
+builder.Services.AddScoped<IDbIntializer, DbIntializer>();
+
 build.AddDeveloperSigningCredential();
 
 
 var app = builder.Build();
+
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -52,8 +57,18 @@ app.UseIdentityServer();
 
 app.UseAuthorization();
 
+using (var serviceScope = app.Services.CreateScope())
+{
+    var services = serviceScope.ServiceProvider;
+
+    var initializer = services.GetRequiredService<IDbIntializer>();
+
+    initializer.Initialize();
+}
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
