@@ -24,12 +24,13 @@ namespace eShop.Controllers
             return View(products);
         }
 
+        [HttpGet("Create")]
         public async Task<IActionResult> ProductCreate()
         {
             return View();
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public async Task<IActionResult> ProductCreate([FromForm]ProductModel model)
         {
             if (ModelState.IsValid)
@@ -40,6 +41,47 @@ namespace eShop.Controllers
             }
             return View(model);
         }
-         
+
+        [HttpGet("Update")]
+        public async Task<IActionResult> ProductUpdate(int id)
+        {
+            var model = await _productService.FindProductById(id);
+            if(model != null) return View(model);
+
+            return View(NotFound());
+        }
+
+        [HttpPost("Update")]
+        public async Task<IActionResult> ProductUpdate([FromForm] ProductModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _productService.UpdateProduct(model);
+                if (response != null) return RedirectToAction(
+                     nameof(ProductIndex));
+            }
+            return View(model);
+        }
+
+        [HttpGet("Delete")]
+        public async Task<IActionResult> ProductDelete(int id)
+        {
+            var model = await _productService.FindProductById(id);
+            if (model != null) return View(model);
+
+            return View(NotFound());
+        }
+
+        [HttpPost("Delete")]
+        public async Task<IActionResult> ProductDelete([FromForm] ProductModel model)
+        {
+
+            var response = await _productService.DeleteProductById(model.Id);
+            if (response) return RedirectToAction(
+                     nameof(ProductIndex));
+
+            return View(model);
+        }
+
     }
 }

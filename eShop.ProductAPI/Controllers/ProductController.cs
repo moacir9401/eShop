@@ -58,7 +58,7 @@ namespace eShop.ProductAPIs.Controllers
         public async Task<ActionResult> Delete(long id)
         {
             var status = await _repository.Delete(id);
-            if (status) return BadRequest();
+            if (!status) return BadRequest();
             return Ok(status);
         }
 
