@@ -1,5 +1,6 @@
 ﻿using eShop.Models;
 using eShop.Services.IServices;
+using eShop.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,19 +18,21 @@ namespace eShop.Controllers
             _productService = productService ?? throw new ArgumentNullException(nameof(productService));
         }
 
-        [HttpGet("/")]
+         [Authorize]
         public async Task<IActionResult> ProductIndex()
         {
             var products = await _productService.FindAllProducts();
             return View(products);
         }
 
+        [Authorize]
         [HttpGet("Create")]
         public async Task<IActionResult> ProductCreate()
         {
             return View();
         }
 
+        [Authorize]
         [HttpPost("Create")]
         public async Task<IActionResult> ProductCreate([FromForm]ProductModel model)
         {
@@ -42,6 +45,7 @@ namespace eShop.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpGet("Update")]
         public async Task<IActionResult> ProductUpdate(int id)
         {
@@ -51,6 +55,7 @@ namespace eShop.Controllers
             return View(NotFound());
         }
 
+        [Authorize]
         [HttpPost("Update")]
         public async Task<IActionResult> ProductUpdate([FromForm] ProductModel model)
         {
@@ -63,6 +68,7 @@ namespace eShop.Controllers
             return View(model);
         }
 
+        [Authorize]
         [HttpGet("Delete")]
         public async Task<IActionResult> ProductDelete(int id)
         {
@@ -72,6 +78,7 @@ namespace eShop.Controllers
             return View(NotFound());
         }
 
+        [Authorize(Roles = Role.Admin)]
         [HttpPost("Delete")]
         public async Task<IActionResult> ProductDelete([FromForm] ProductModel model)
         {
