@@ -18,7 +18,7 @@ namespace eShop.ProductAPIs.Controllers
             _repository = repository ?? throw new
                 ArgumentNullException(nameof(repository));
         }
-        [Authorize]
+
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductVO>>> FindAll()
         {
