@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eshop.CartApi.Model
 {
-    [Table("product")]
-    public class CartHeader: BaseEntity
+    [Table("cart_header")]
+    public class CartHeader : BaseEntity
     {
-        [Column("User_id")]
+        [Column("user_id")]
         public string UserId { get; set; }
 
         [Column("coupon_code")]

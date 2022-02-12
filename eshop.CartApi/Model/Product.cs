@@ -3,11 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eShop.CartAPI.Model
 {
-
     [Table("product")]
     public class Product
     {
-
         [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         [Column("id")]
         public long Id { get; set; }
