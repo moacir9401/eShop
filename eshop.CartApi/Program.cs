@@ -1,4 +1,5 @@
 using AutoMapper;
+using eshop.CartApi.Repository;
 using eShop.CartAPI.Config;
 using eShop.CartAPI.Model.Context;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,7 @@ var connection = builder.Configuration["MysqlConnection:MysqlConnectionString"];
 IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-//builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<ICartRepository, CartRepository>();
 
 builder.Services.AddDbContext<MySqlContext>(options => options
 .UseMySql(connection,
