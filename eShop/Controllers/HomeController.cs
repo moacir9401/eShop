@@ -1,4 +1,5 @@
 ﻿using eShop.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -33,7 +34,8 @@ namespace eShop.Controllers
         [Authorize]
         public async Task<IActionResult> Login()
         {
-            return RedirectToAction(nameof(Index));
+            var accessToken = await HttpContext.GetTokenAsync("acess_token");
+            return  RedirectToAction(nameof(Index));
         }
 
         public IActionResult Logout()

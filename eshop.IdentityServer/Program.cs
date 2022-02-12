@@ -1,7 +1,9 @@
+using Duende.IdentityServer.Services;
 using eshop.IdentityServer.Configuration;
 using eshop.IdentityServer.Initializer;
 using eshop.IdentityServer.Model;
 using eshop.IdentityServer.Model.Context;
+using eshop.IdentityServer.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -33,6 +35,7 @@ var build = builder.Services.AddIdentityServer(options =>
 .AddAspNetIdentity<ApplicationUser>();
 
 builder.Services.AddScoped<IDbIntializer, DbIntializer>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
 
 build.AddDeveloperSigningCredential();
 
