@@ -126,13 +126,13 @@ namespace eshop.CartApi.Repository
                 var cartDetail = await _context.CartDetails
                     .AsNoTracking()
                     .FirstOrDefaultAsync(p =>
-                    p.ProductId == vo.CartDetails.FirstOrDefault().ProductId &&
+                    p.ProductId == cart.CartDetails.FirstOrDefault().ProductId &&
                     p.CartHeaderId == cart.CartHeader.Id
                     );
 
                 if (cartDetail == null)
                 {
-                    cart.CartDetails.FirstOrDefault().CartHeaderId = cart.CartHeader.Id;
+                    cart.CartDetails.FirstOrDefault().CartHeaderId = cartHeader.Id;
                     cart.CartDetails.FirstOrDefault().Product = null;
                     _context.CartDetails.Add(cart.CartDetails.FirstOrDefault());
                     await _context.SaveChangesAsync();
