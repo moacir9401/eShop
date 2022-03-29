@@ -3,7 +3,6 @@ using eShop.Services.Iservices;
 using eShop.Utils;
 using System.Net.Http;
 using System.Net.Http.Headers;
-
 namespace eShop.Services
 {
     public class CartService : ICartService
@@ -27,13 +26,18 @@ namespace eShop.Services
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var response = await _client.PostAsJson($"{basePath}/add-cart", model);
-            if(response.IsSuccessStatusCode)
-            return await response.ReadContentAs<CartViewModel>();
-            else throw new Exception("Something went wrong when calling API");
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.ReadContentAs<CartViewModel>();
+            }
+            else
+            {
+                throw new Exception("Something went wrong when calling API");
+            }
         }
         public async Task<CartViewModel> UpdateCart(CartViewModel model, string token)
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer",token);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var response = await _client.PutAsJson($"{basePath}/update-cart", model);
             if (response.IsSuccessStatusCode)
                 return await response.ReadContentAs<CartViewModel>();

@@ -17,25 +17,22 @@ namespace eshop.CartApi.Repository
             _mapper = mapper;
         }
 
-        public async Task<bool> ApplyCoupon(string unserId, string couponCode)
+        public async Task<bool> ApplyCoupon(string userId, string couponCode)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<bool> ClearCart(string unserId)
+        public async Task<bool> ClearCart(string userId)
         {
-            var cardHeader = await _context.CartHeaders
-                         .FirstOrDefaultAsync(c => c.UserId == unserId);
+            var cartHeaderToRemove = await _context.CartHeaders
+               .FirstOrDefaultAsync(c => c.UserId == userId);
 
-            if (cardHeader != null)
+            if (cartHeaderToRemove != null)
             {
-                _context.CartDetails.RemoveRange(
-                    _context.CartDetails.Where(c => c.CartHeaderId == cardHeader.Id)
-                    );
-
-                _context.CartHeaders.Remove(cardHeader);
+                _context.CartDetails
+                    .RemoveRange(_context.CartDetails.Where(c => c.CartHeaderId == cartHeaderToRemove.Id));
+                _context.CartHeaders.Remove(cartHeaderToRemove);
                 await _context.SaveChangesAsync();
-
                 return true;
             }
 

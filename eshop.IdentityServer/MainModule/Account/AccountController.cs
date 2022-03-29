@@ -22,6 +22,7 @@ using eshop.IdentityServer.Model;
 using eshop.IdentityServer.MainModule.Account;
 using System.Collections.Generic;
 using System.Security.Claims;
+using eshop.IdentityServer.MainModule.Account;
 
 namespace IdentityServerHost.Quickstart.UI
 {

@@ -8,12 +8,17 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{21B3F596-B607-4D1A-A6BE-6381FD0C9EF7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShop", "eShop\eShop.csproj", "{24FE2CF1-D2E8-45F5-B82F-01ACEF3E691F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6AB3B012-90F8-4A8A-863E-0B5931CD5AB4} = {6AB3B012-90F8-4A8A-863E-0B5931CD5AB4}
+		{3C978D19-DA93-4823-BAEC-A37B1A30677B} = {3C978D19-DA93-4823-BAEC-A37B1A30677B}
+		{2F9FF24F-BE72-446D-BB38-ED0CD0E8AE1D} = {2F9FF24F-BE72-446D-BB38-ED0CD0E8AE1D}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eShop.ProductAPIs", "eShop.ProductAPI\eShop.ProductAPIs.csproj", "{2F9FF24F-BE72-446D-BB38-ED0CD0E8AE1D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eshop.IdentityServer", "eshop.IdentityServer\eshop.IdentityServer.csproj", "{3C978D19-DA93-4823-BAEC-A37B1A30677B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eshop.CartApi", "eshop.CartApi\eshop.CartApi.csproj", "{6AB3B012-90F8-4A8A-863E-0B5931CD5AB4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eshop.CartApi", "eshop.CartApi\eshop.CartApi.csproj", "{6AB3B012-90F8-4A8A-863E-0B5931CD5AB4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

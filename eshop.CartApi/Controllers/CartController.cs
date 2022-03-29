@@ -1,25 +1,33 @@
-using eshop.CartApi.Data.ValueObjects;
+using eShop.CartAPI.Data.ValueObjects;
 using eshop.CartApi.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using eshop.CartApi.Data.ValueObjects;
 
-namespace eshop.CartApi.Controllers
+namespace GeekShopping.CartAPI.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
     public class CartController : ControllerBase
     {
-        private readonly ICartRepository _repository;
+        private ICartRepository _repository;
 
-        public CartController(ICartRepository cartRepository)
+        public CartController(ICartRepository repository)
         {
-            _repository = cartRepository ?? throw new ArgumentNullException(nameof(cartRepository));
+            _repository = repository ?? throw new
+                ArgumentNullException(nameof(repository));
         }
 
         [HttpGet("find-cart/{id}")]
         public async Task<ActionResult<CartVO>> FindById(string id)
         {
             var cart = await _repository.FindCartByUserId(id);
-            if(cart == null) return NotFound();
+            if (cart == null) return NotFound();
             return Ok(cart);
         }
 
@@ -43,8 +51,7 @@ namespace eshop.CartApi.Controllers
         public async Task<ActionResult<CartVO>> RemoveCart(int id)
         {
             var status = await _repository.RemoveFromCart(id);
-            if (!status) return NotFound();
-
+            if (!status) return BadRequest();
             return Ok(status);
         }
     }
