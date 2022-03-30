@@ -31,7 +31,7 @@ namespace eshop.CouponAPI.Migrations
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("varchar(30)")
-                        .HasColumnName("CoupomCode");
+                        .HasColumnName("CouponCode");
 
                     b.Property<decimal>("DiscountAmount")
                         .HasColumnType("decimal(65,30)")

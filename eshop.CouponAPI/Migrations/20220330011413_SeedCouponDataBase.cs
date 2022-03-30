@@ -10,12 +10,12 @@ namespace eshop.CouponAPI.Migrations
         {
             migrationBuilder.InsertData(
                 table: "Coupon",
-                columns: new[] { "id", "CoupomCode", "DiscountAmount" },
+                columns: new[] { "id", "CouponCode", "DiscountAmount" },
                 values: new object[] { 1L, "ERUDIO_2022_10", 10m });
 
             migrationBuilder.InsertData(
                 table: "Coupon",
-                columns: new[] { "id", "CoupomCode", "DiscountAmount" },
+                columns: new[] { "id", "CouponCode", "DiscountAmount" },
                 values: new object[] { 2L, "ERUDIO_2022_15", 15m });
         }
 

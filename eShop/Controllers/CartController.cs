@@ -16,12 +16,14 @@ namespace eShop.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICartService _cartService;
+        private readonly ICouponServices _couponService;
 
         public CartController(IProductService productService,
-            ICartService cartService)
+            ICartService cartService, ICouponServices couponService)
         {
             _productService = productService;
             _cartService = cartService;
+            _couponService = couponService;
         }
 
         [Authorize]
@@ -86,10 +88,21 @@ namespace eShop.Controllers
 
             if (response?.CartHeader != null)
             {
+                if (!string.IsNullOrEmpty(response.CartHeader.CouponCode))
+                {
+                    var coupon = await _couponService.GetCoupon(response.CartHeader.CouponCode,token);
+
+                    if (coupon?.CouponCode != null)
+                    {
+                        response.CartHeader.DiscountTotal = coupon.DiscountAmount;
+                    }
+                }
                 foreach (var detail in response.CartDetails)
                 {
                     response.CartHeader.PurchaseAmount += (detail.Product.Price * detail.Count);
                 }
+
+                response.CartHeader.PurchaseAmount -= response.CartHeader.DiscountTotal;
             }
             return response;
         }

@@ -27,11 +27,11 @@ namespace eshop.CouponAPI.Migrations
                         .HasColumnType("bigint")
                         .HasColumnName("id");
 
-                    b.Property<string>("CoupomCode")
+                    b.Property<string>("CouponCode")
                         .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("varchar(30)")
-                        .HasColumnName("CoupomCode");
+                        .HasColumnName("CouponCode");
 
                     b.Property<decimal>("DiscountAmount")
                         .HasColumnType("decimal(65,30)")

@@ -7,7 +7,7 @@ namespace eShop.CouponAPI.Model
     [Table("Coupon")]
     public class Coupon: BaseEntity
     { 
-        [Column("CoupomCode")]
+        [Column("CouponCode")]
         [Required]
         [StringLength(30)]
         public string? CouponCode { get; set; }
