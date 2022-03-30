@@ -13,6 +13,7 @@ namespace eShop.Models
         public string LastName { get; set; }
         public DateTime DateTIme { get; set; }
         public string Phone { get; set; }
+        public string Email { get; set; }
         public string CardNumber { get; set; }
         public string CVV { get; set; }
         public string ExpiryMothYear { get; set; }
