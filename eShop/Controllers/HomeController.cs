@@ -57,8 +57,7 @@ namespace eShop.Controllers
             {
                 Count = model.Count,
                 ProductId = model.Id,
-                Product = await _productService.FindProductById(model.Id, token),
-                CartHeader = cart.CartHeader,
+                Product = await _productService.FindProductById(model.Id, token) 
             };
 
             List<CartDetailViewModel> cartDetails = new List<CartDetailViewModel>();
