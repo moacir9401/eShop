@@ -18,6 +18,6 @@ namespace eshop.CartApi.Messages
         public string CVV { get; set; }
         public string ExpiryMothYear { get; set; }
         public int   CartTotalItens { get; set; }
-        public IEnumerable<CartDetailVO> CartDetails { get; set; }
+        public IEnumerable<CartDetailVO>? CartDetails { get; set; }
     }
 }

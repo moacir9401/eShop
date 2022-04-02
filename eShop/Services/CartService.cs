@@ -72,10 +72,8 @@ namespace eShop.Services
         public async Task<CartHeaderViewModel> Checkout(CartHeaderViewModel cartHeader, string token)
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             var response = await _client.PostAsJson($"{basePath}/checkout", cartHeader);
-
-            if (response.IsSuccessStatusCode) 
+            if (response.IsSuccessStatusCode)
                 return await response.ReadContentAs<CartHeaderViewModel>();
             else throw new Exception("Something went wrong when calling API");
 
