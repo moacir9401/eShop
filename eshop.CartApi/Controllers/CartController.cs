@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using eshop.CartApi.Data.ValueObjects;
+using eshop.CartApi.Messages;
 
 namespace GeekShopping.CartAPI.Controllers
 {
@@ -73,6 +74,18 @@ namespace GeekShopping.CartAPI.Controllers
             if (!status) return NotFound();
 
             return Ok(status);
+        }
+        [HttpPost("checkout")]
+        public async Task<ActionResult<CartVO>> Checkout(CheckoutHeaderVO vo)
+        {
+            var cart = await _repository.FindCartByUserId(vo.UserId);
+            if (cart == null) return NotFound();
+
+            vo.CartDetails = cart.CartDetails;
+            
+
+            return Ok(vo);
+             
         }
     }
 }
