@@ -1,4 +1,5 @@
 using AutoMapper;
+using eshop.CartApi.RabbitMQSender;
 using eshop.CartApi.Repository;
 using eShop.CartAPI.Config;
 using eShop.CartAPI.Model.Context;
@@ -16,6 +17,7 @@ IMapper mapper = MappingConfig.RegisterMaps().CreateMapper();
 builder.Services.AddSingleton(mapper);
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<ICartRepository, CartRepository>();
+builder.Services.AddSingleton<IRabbitMQMensageSender, RabbitMQSender>();
 
 builder.Services.AddDbContext<MySqlContext>(options => options
 .UseMySql(connection,

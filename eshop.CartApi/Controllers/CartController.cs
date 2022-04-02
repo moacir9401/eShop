@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using eshop.CartApi.Data.ValueObjects;
 using eshop.CartApi.Messages;
+using eshop.CartApi.RabbitMQSender;
 
 namespace GeekShopping.CartAPI.Controllers
 {
@@ -17,11 +18,12 @@ namespace GeekShopping.CartAPI.Controllers
     public class CartController : ControllerBase
     {
         private ICartRepository _repository;
+        private IRabbitMQMensageSender _rabbitMQMensageSender;
 
-        public CartController(ICartRepository repository)
+        public CartController(ICartRepository repository, IRabbitMQMensageSender rabbitMQMensageSender)
         {
-            _repository = repository ?? throw new
-                ArgumentNullException(nameof(repository));
+            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
+            _rabbitMQMensageSender = rabbitMQMensageSender ?? throw new ArgumentNullException(nameof(rabbitMQMensageSender));
         }
 
         [HttpGet("find-cart/{id}")]
@@ -79,10 +81,14 @@ namespace GeekShopping.CartAPI.Controllers
         [HttpPost("checkout")]
         public async Task<ActionResult<CheckoutHeaderVO>> Checkout(CheckoutHeaderVO vo)
         {
+            if (vo?.UserId == null) return BadRequest();
+
             var cart = await _repository.FindCartByUserId(vo.UserId);
             if (cart == null) return NotFound();
 
-            vo.CartDetails = cart.CartDetails;            
+            vo.CartDetails = cart.CartDetails;
+
+            _rabbitMQMensageSender.SendMenssage(vo, "checkoutqueue");
 
             return Ok(vo);
              
