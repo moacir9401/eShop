@@ -8,7 +8,7 @@ namespace eshop.MessageBus
 {
     public class BaseMessage
     {
-        public long iD { get; set; }
-        public DateTime MenssageCreated { get; set; }
+        public long? iD { get; set; }
+        public DateTime? MessageCreated  { get; set; }
     }
 }

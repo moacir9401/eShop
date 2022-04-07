@@ -18,12 +18,12 @@ namespace GeekShopping.CartAPI.Controllers
     public class CartController : ControllerBase
     {
         private ICartRepository _repository;
-        private IRabbitMQMensageSender _rabbitMQMensageSender;
+        private IRabbitMQMessageSender _rabbitMQMessageSender;
 
-        public CartController(ICartRepository repository, IRabbitMQMensageSender rabbitMQMensageSender)
+        public CartController(ICartRepository repository, IRabbitMQMessageSender rabbitMQMessageSender)
         {
             _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-            _rabbitMQMensageSender = rabbitMQMensageSender ?? throw new ArgumentNullException(nameof(rabbitMQMensageSender));
+            _rabbitMQMessageSender = rabbitMQMessageSender ?? throw new ArgumentNullException(nameof(rabbitMQMessageSender));
         }
 
         [HttpGet("find-cart/{id}")]
@@ -82,13 +82,13 @@ namespace GeekShopping.CartAPI.Controllers
         public async Task<ActionResult<CheckoutHeaderVO>> Checkout(CheckoutHeaderVO vo)
         {
             if (vo?.UserId == null) return BadRequest();
-
             var cart = await _repository.FindCartByUserId(vo.UserId);
             if (cart == null) return NotFound();
-
             vo.CartDetails = cart.CartDetails;
+            vo.DateTime = DateTime.Now;
 
-            _rabbitMQMensageSender.SendMenssage(vo, "checkoutqueue");
+            // RabbitMQ logic comes here!!!
+            _rabbitMQMessageSender.SendMessage(vo, "checkoutqueue");
 
             return Ok(vo);
              
