@@ -26,7 +26,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Integration", "Integration"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eshop.MessageBus", "eshop.MessageBus\eshop.MessageBus.csproj", "{D8D91065-3E82-4F0D-ADBB-533C6BEA9D92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderAPI", "OrderAPI\OrderAPI.csproj", "{584F063D-27A9-4AD5-8885-D0AC4E0CE4AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eshop.OrderAPI", "OrderAPI\eshop.OrderAPI.csproj", "{584F063D-27A9-4AD5-8885-D0AC4E0CE4AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
