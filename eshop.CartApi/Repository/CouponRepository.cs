@@ -20,7 +20,7 @@ namespace eshop.CartApi.Repository
 
         public async Task<CouponVO> GetCoupon(string couponCode, string token)
         {
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token.Replace("Bearer ",""));
 
             var response = await _client.GetAsync($"api/v1/coupon/{couponCode}");
 

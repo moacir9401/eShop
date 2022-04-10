@@ -82,7 +82,7 @@ namespace GeekShopping.CartAPI.Controllers
 
         [HttpPost("checkout")]
         public async Task<ActionResult<CheckoutHeaderVO>> Checkout(CheckoutHeaderVO vo)
-        {
+        { 
             string token = Request.Headers["Authorization"];
 
             if (vo?.UserId == null) return BadRequest();

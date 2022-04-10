@@ -1,4 +1,5 @@
 ﻿using eshop.OrderAPI.Messages;
+using eshop.OrderAPI.RabbitMQSender;
 using eshop.OrderAPI.Repository;
 using eShop.Order.Model.Base;
 using RabbitMQ.Client;
@@ -13,10 +14,12 @@ namespace eshop.OrderAPI.MessageConsumer
         private readonly OrderRepository _repository;
         private readonly IConnection _connection;
         private IModel _channel;
+        private IRabbitMQMessageSender _rabbitMQMessageSender;
 
-        public RabbitMQCheckoutConsumer(OrderRepository repository)
+        public RabbitMQCheckoutConsumer(OrderRepository repository, IRabbitMQMessageSender rabbitMQMessageSender)
         {
             _repository = repository;
+            _rabbitMQMessageSender = rabbitMQMessageSender;
 
             var factory = new ConnectionFactory
             {
@@ -91,6 +94,27 @@ namespace eshop.OrderAPI.MessageConsumer
             }
 
             await _repository.AddOrder(order);
+
+            PaymentVO payment = new()
+            {
+                Name = $"{order.FirstName} {order.LastName}",
+                CardNumber = order.CardNumber,
+                CVV = order.CVV,
+                ExpiryMothYear = order.ExpiryMothYear,
+                OrderId = order.Id,
+                PurchaseAmount = order.PurchaseAmount,
+                Email = order.Email
+            };
+
+            try
+            {
+                _rabbitMQMessageSender.SendMessage(payment, "orderPaymentProcessQueue");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }
