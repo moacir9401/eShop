@@ -15,6 +15,8 @@ namespace eshop.OrderAPI.MessageConsumer
         private readonly IConnection _connection;
         private IModel _channel;
         private IRabbitMQMessageSender _rabbitMQMessageSender;
+        private const string ExchangeName = "FanoutPaymentUpdateExchange";
+        string queueName = "";
 
         public RabbitMQCheckoutConsumer(OrderRepository repository, IRabbitMQMessageSender rabbitMQMessageSender)
         {
@@ -30,7 +32,12 @@ namespace eshop.OrderAPI.MessageConsumer
             _connection = factory.CreateConnection();
 
             _channel = _connection.CreateModel();
-            _channel.QueueDeclare(queue: "checkoutqueue", false, false, false, arguments: null);
+            _channel.ExchangeDeclare(ExchangeName, ExchangeType.Fanout);
+
+            queueName = _channel.QueueDeclare().QueueName;
+
+            _channel.QueueBind(queueName, ExchangeName, "");
+
 
         }
 
@@ -108,7 +115,7 @@ namespace eshop.OrderAPI.MessageConsumer
 
             try
             {
-                _rabbitMQMessageSender.SendMessage(payment, "orderPaymentProcessQueue");
+                _rabbitMQMessageSender.SendMessage(payment, queueName);
             }
             catch (Exception)
             {
