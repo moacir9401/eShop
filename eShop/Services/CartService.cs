@@ -1,7 +1,6 @@
 ﻿using eShop.Models;
 using eShop.Services.Iservices;
 using eShop.Utils;
-using System.Net.Http;
 using System.Net.Http.Headers;
 namespace eShop.Services
 {
@@ -69,12 +68,18 @@ namespace eShop.Services
                 return await response.ReadContentAs<bool>();
             else throw new Exception("Something went wrong when calling API");
         }
-        public async Task<CartHeaderViewModel> Checkout(CartHeaderViewModel cartHeader, string token)
+        public async Task<object> Checkout(CartHeaderViewModel cartHeader, string token)
         {
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var response = await _client.PostAsJson($"{basePath}/checkout", cartHeader);
             if (response.IsSuccessStatusCode)
+            {
                 return await response.ReadContentAs<CartHeaderViewModel>();
+            }
+            else if (response.StatusCode.ToString().Equals("PreconditionFailed"))
+            {
+                return "Coupon Price has changed. Please confirm!";
+            }
             else throw new Exception("Something went wrong when calling API");
 
         }

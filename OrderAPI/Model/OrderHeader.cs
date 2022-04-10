@@ -34,7 +34,7 @@ namespace eShop.Order.Model.Base
         public string ExpiryMothYear { get; set; }
         [Column("total_itens")]
         public int CartTotalItens { get; set; } 
-        public IEnumerable<OrderDetail>? CartDetails { get; set; }
+        public List<OrderDetail>? OrderDetails { get; set; }
         [Column("payment_status")]
         public bool PaymentStatus { get; set; }
     }
