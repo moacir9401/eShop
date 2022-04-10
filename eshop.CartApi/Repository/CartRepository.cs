@@ -24,7 +24,7 @@ namespace eshop.CartApi.Repository
 
             if (header != null)
             {
-               header.CouponCode = couponCode;
+                header.CouponCode = couponCode;
                 _context.CartHeaders.Update(header);
 
                 await _context.SaveChangesAsync();
@@ -74,7 +74,7 @@ namespace eshop.CartApi.Repository
             Cart cart = new()
             {
                 CartHeader = await _context.CartHeaders
-                .FirstOrDefaultAsync(c => c.UserId == userId)
+                .FirstOrDefaultAsync(c => c.UserId == userId) ?? new CartHeader()
             };
 
             cart.CartDetails = _context.CartDetails
