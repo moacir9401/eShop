@@ -51,13 +51,13 @@ namespace eshop.OrderAPI.RabbitMQSender
                 {
                     HostName = _hostName,
                     UserName = _userName,
-                    Password = _password,
+                    Password = _password
                 };
                 _connection = factory.CreateConnection();
             }
             catch (Exception)
             {
-
+                //Log exception
                 throw;
             }
         }
@@ -65,10 +65,8 @@ namespace eshop.OrderAPI.RabbitMQSender
         private bool ConnectionExists()
         {
             if (_connection != null) return true;
-
             CreateConnection();
             return _connection != null;
-
         }
     }
 }
