@@ -23,6 +23,7 @@ new MySqlServerVersion
 
 builder.Services.AddSingleton(new OrderRepository(dbBuilder.Options));
 builder.Services.AddHostedService<RabbitMQCheckoutConsumer>();
+builder.Services.AddHostedService<RabbitMQPaymentConsumer>();
 builder.Services.AddSingleton<IRabbitMQMessageSender, RabbitMQMessageSender>();
 
 builder.Services.AddControllers();
@@ -49,8 +50,7 @@ builder.Services.AddAuthorization(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
-{
-    c.EnableAnnotations();
+{ 
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
     {
         Description = @"Enter 'Bearer' [space] and your token!",

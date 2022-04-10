@@ -30,9 +30,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eshop.OrderAPI", "OrderAPI\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payments", "Payments", "{1281C33C-6BCC-43B3-B172-801230547873}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eshop.PaymentProcessor", "eshop.PaymentProcessor\eshop.PaymentProcessor.csproj", "{9D62788B-69DF-41D8-8471-27D13D388D70}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eshop.PaymentProcessor", "eshop.PaymentProcessor\eshop.PaymentProcessor.csproj", "{9D62788B-69DF-41D8-8471-27D13D388D70}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eshop.PaymentAPI", "eshop.PaymentAPI\eshop.PaymentAPI.csproj", "{8FFEF4F9-8182-4147-8110-90A2E407B790}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eshop.PaymentAPI", "eshop.PaymentAPI\eshop.PaymentAPI.csproj", "{8FFEF4F9-8182-4147-8110-90A2E407B790}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
